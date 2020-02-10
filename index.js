@@ -18,7 +18,8 @@ app.use(express.static("public"));
 app.get("/", (req,res)=>{
     res.render("home", {
         title: "Homepage",
-        productcategory: category.getAllProducts()
+        productcategory: category.getAllProducts(),
+        productsbest: bestsellers.getAllProducts()
     });
 })
 

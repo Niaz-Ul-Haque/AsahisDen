@@ -71,9 +71,8 @@
     padding: 0 5px;
 }
 
-.navigation a li:hover {
-    
-    background-color:white;
+.navigation a li:hover {    
+    border-bottom: black;
 }
 
 footer {
