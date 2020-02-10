@@ -23,7 +23,6 @@ app.get("/", (req,res)=>{
     });
 })
 
-
 //Products route
 app.get("/products", (req,res)=>{
     res.render("products", {
