@@ -11,10 +11,10 @@ const bestSeller = {
     },
 
     getAllProducts() {
-        this.inDB();
+        
         return this.bestSellersDB;
     }
 
 }
-
+this.inDB();
 module.exports = bestSeller;

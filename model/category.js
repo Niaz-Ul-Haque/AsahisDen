@@ -11,10 +11,10 @@ const category = {
     },
 
     getAllProducts() {
-        this.inDB();
+      
         return this.categoryDB;
     }
 
 }
-
+this.inDB();
 module.exports = category;

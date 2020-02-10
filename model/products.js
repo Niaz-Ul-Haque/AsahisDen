@@ -11,12 +11,12 @@ const product = {
     this.DB.push({title:'Shirt 5',description:`Best Summer Shirt`,price:`49.99`, imgSrc: "/img/img 5.jpg"});
     this.DB.push({title:'Shirt 6',description:`Best Summer Shirt`,price:`49.99`, imgSrc: "/img/img 6.jpg"});
     },
-
+    
     getAllProducts() {
-        this.inDB();
+        
         return this.DB;
     }
 
 }
-
+this.inDB();
 module.exports = product;

@@ -53,8 +53,7 @@
     padding: 0 20px;
 }
 
-.register-sign {
-   
+.register-sign {   
     font-size: 20px;
 }
 
@@ -72,7 +71,8 @@
 }
 
 .navigation a li:hover {    
-    border-bottom: black;
+    
+    padding-bottom: 15%;
 }
 
 footer {
