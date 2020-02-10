@@ -1,0 +1,19 @@
+{{#each productlistings}}
+
+    <div class="product-listings">
+        <div class="proo">
+        <img src="{{this.imgSrc}}">
+        </div>
+        <p>
+            Title: {{this.title}}
+        </p>
+        <p>
+            Price: {{this.price}}
+        </p>
+        <p class="product-description">
+            Description: {{this.description}}
+        </p>
+        
+    </div>
+
+{{/each}}

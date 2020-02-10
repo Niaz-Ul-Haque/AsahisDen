@@ -1,0 +1,25 @@
+<div class="home-container">
+    <div class="promotion-banner-container">
+        <img class="promotion-banner"src="./img/slide img 3.jpg">        
+    </div>
+    <br><br>
+    <div class="categories">
+        <h2 class="category-title">Category</h2>
+        <div class="category-image-container">
+        {{#each productcategory}}        
+            <img class="category-image" src="{{this.imgSrc}}">            
+        {{/each}}
+        </div>
+    </div>
+    <br><br>
+    <div class="best-sellers">
+        <h2 class="category-title">Best Sellers</h2>
+        <div class="category-image-container">
+        {{#each productcategory}}        
+            <img class="category-image" src="{{this.imgSrc}}">            
+        {{/each}}
+        </div>
+    </div>
+</div>
+
+
