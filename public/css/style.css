@@ -13,6 +13,7 @@
     border-bottom: 1px solid black;  
 }
 
+
 .inner-header {
     width: 800px;
     height: 100%;
@@ -88,10 +89,21 @@ main {
     min-height: calc(100vh - 70px - 58px);
 }
 
-
 .promotion-banner {
     width: 100%;
     height: 280px;
+    border: solid black;
+}
+.product-listings img{  
+    width: 100%;
+    background-size: 100px;
+    border: solid;   
+}
+
+.product-listings {  
+    width: 33.33%;
+    background-size: 100px;
+    
 }
 
 .proo {
@@ -99,13 +111,6 @@ main {
     width: 33.33%;
     padding: 5px;
 }
-
-.product-listings img {  
-    width: 20%;
-    background-size: 100px;
-    border: solid;   
-}
-
 
 .category-image {
     height: 150px;
