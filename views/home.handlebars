@@ -4,10 +4,11 @@
     </div>
     <br><br>
     <div class="categories">
-        <h2 class="category-title">Category</h2>
+        {{!-- <h2 class="category-title">Category</h2> --}}
         <div class="category-image-container">
-        {{#each productcategory}}        
-            <img class="category-image" src="{{this.imgSrc}}">            
+        {{#each productcategory}}
+            <ul class="category-list"><h6>{{this.title}}</h6>        
+            <img class="category-image" src="{{this.imgSrc}}"></ul>            
         {{/each}}
         </div>
     </div>

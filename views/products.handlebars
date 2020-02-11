@@ -1,15 +1,19 @@
-{{#each productlistings}}
+<div class="productss">
+    {{#each productlistings}}
 
     <div class="product-listings">
-        <div class="proo">
-        <img src="{{this.imgSrc}}">
-        </div>
         <p>
             Title: {{this.title}}
         </p>
+        <br>
+        <div class="proo">
+        <img src="{{this.imgSrc}}">
+        </div>
+        <br>
         <p>
             Price: {{this.price}}
         </p>
+        <br>
         <p>
             Description: {{this.description}}
         </p>
@@ -17,3 +21,4 @@
     </div>
 
 {{/each}}
+</div>
