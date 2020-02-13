@@ -39,11 +39,11 @@ app.get("/signup", (req,res)=>{
 })
 
 //Login route
-app.get("/login", (req,res)=>{
-    res.render("login", {
-        title: "Login"
-    });
-})
+// app.get("/login", (req,res)=>{
+//     res.render("login", {
+//         title: "Login"
+//     });
+// })
 
 const port = 3000;
 app.listen(port,() => {
