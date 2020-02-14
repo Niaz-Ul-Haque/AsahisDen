@@ -151,7 +151,7 @@ main {
     flex-direction: column;  
     grid-template-columns: auto auto auto;
  
-}
+}   
  
 input[type="radio"] {
     position: fixed;
