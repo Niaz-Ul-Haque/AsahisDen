@@ -38,12 +38,32 @@ app.get("/signup", (req,res)=>{
     });
 })
 
-//Login route
-// app.get("/login", (req,res)=>{
-//     res.render("login", {
-//         title: "Login"
-//     });
-// })
+app.post("/formval", (req,res)=>{
+    const arr = [];
+    var lettersandnumbers = /^[A-Za-z]+$/;;
+
+    if (req.body.name == ""){
+        arr.push("Please enter a name");
+    }
+    if (req.body.password.match(lettersandnumbers) == -1){
+        arr.push("Please enter a password with atleast a single letter or number, and 6 - 12 characters long");
+    }
+    
+
+    if(arr.length > 0){
+        res.render("signup", {
+            title: "Registration",
+            message: arr,
+            name: req.body.name,
+            email: req.body.email,
+        })
+    } else {
+        res.render("products", {
+            title: "Products",
+            productlistings: allProducts.getAllProducts()
+        });
+    }
+})
 
 const port = 3000;
 app.listen(port,() => {

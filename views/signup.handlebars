@@ -1,7 +1,7 @@
 
 <div class="flex-wrap">
     <fieldset>
-        <form>
+        <form method="POST" action="/formval">
             
             <br>
             <input type="radio" name="rg" id="sign-in" checked/>
@@ -12,15 +12,19 @@
             <label for="sign-up">Sign up</label>
             <label for="reset">Reset</label>  
     
-            <input class="sign-up sign-in" id="sign-up-sign-in"type="text" placeholder="Name" />
-            <input class="sign-up sign-in reset" id="sign-up-sign-in" type="email" placeholder="Email" />
-            <input class="sign-up sign-in" id="sign-up-sign-in" type="password" placeholder ="Password" />
-            <input class="sign-up" id="sign-up-sign-in" type="password" placeholder ="Repeat Password" />
+            <input class="sign-up sign-in"  value={{name}} type="text"  name="name" id="sign-up-sign-in" placeholder="Name"/>
+            <input class="sign-up sign-in reset" value= {{email}}  type="email" name="email" id="sign-up-sign-in" placeholder="Email"  />
+            <input class="sign-up sign-in" type="password" name="password" id="sign-up-sign-in" placeholder ="Password"/>
+            <input class="sign-up" name="password" id="sign-up-sign-in" type="password" placeholder ="Repeat Password" />
             <button class="form-button" id="sign-up-sign-in" type="submit"></button>        
 
             <br>
           
             <br>
         </form>
+        {{#each message}}
+            <div class="errors">{{this}}</div>
+        {{/each}}
     </fieldset>
+  
 </div>
