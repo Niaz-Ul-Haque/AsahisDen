@@ -1,6 +1,7 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+require('dotenv').config({path:"./config/keys.emv"});
 
 const bestsellers = require("./model/bestSellers")
 const allProducts = require("./model/products")
@@ -85,6 +86,34 @@ app.post("/signup", (req,res)=>{
             email: req.body.email,
         })
     } else {
+        // const { name, email, password } = req.body;
+        // const sgMail = require('@sendgrid/mail');
+        // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        // const msg = {
+        // to: `${email}`,
+        // from: `theniaz619@gmail.com`,
+        // subject: 'Confirmation Email',
+        // html: 
+        // `
+        // Welcome ${name}!, thank you for registering with us. We hope you enjoy your shopping<br>
+        // Your account details are - <br>
+        // Name : ${name} <br>
+        // Email : ${email} <br>
+        // Password: ${password} <br>
+        // `,
+        // };
+
+        // sgMail.send(msg)
+        // .then(()=>{
+        //     res.render("products", {
+        //         title: "Products",
+        //         productlistings: allProducts.getAllProducts()
+        //         });
+        // })
+        // .catch(err=>{
+        //     console.log(`Error ${err}`);
+        // });
+    
         res.render("products", {
             title: "Products",
             productlistings: allProducts.getAllProducts()
@@ -95,7 +124,7 @@ app.post("/signup", (req,res)=>{
 
 
 
-const port = 3000;
-app.listen(port,() => {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT,() => {
     console.log("Connected to Asahi's Den");
 })
