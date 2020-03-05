@@ -38,17 +38,44 @@ app.get("/signup", (req,res)=>{
     });
 })
 
-app.post("/formval", (req,res)=>{
-    const arr = [];
-    var lettersandnumbers = /^[A-Za-z]+$/;;
+//string = string.toString();
+function checkletters(txt) {
+    let letters = /[a-z]/;
+    txt = txt.toString();
+    if(txt.match(letters)) {
+        return true;
+    }
+    else { 
+        return false; 
+    }
+}
+function checkNumbers(txt) {
+    let numbers = /[0-9]/;
+    txt = txt.toString();
+    if(txt.match(numbers)) {
+        return true;
+    }
+    else { 
+        return false; 
+    }
+}
 
+app.post("/signup", (req,res)=>{
+    const arr = [];
     if (req.body.name == ""){
-        arr.push("Please enter a name");
+        arr.push("Missing First Name");
     }
-    if (req.body.password.match(lettersandnumbers) == -1){
-        arr.push("Please enter a password with atleast a single letter or number, and 6 - 12 characters long");
+    if (checkletters(req.body.password) === false){
+        arr.push("Password should contain letters");
     }
-    
+    if (checkNumbers(req.body.password) === false){
+        arr.push("Password should contain numbers");
+    }
+    if(req.body.repassword != req.body.password)
+        arr.push("Both the passwords should be same");
+    let pass = req.body.password;
+    if(pass.length < 6)
+        arr.push("Password should be in between 6-12 letters and numbers")
 
     if(arr.length > 0){
         res.render("signup", {
@@ -64,6 +91,9 @@ app.post("/formval", (req,res)=>{
         });
     }
 })
+
+
+
 
 const port = 3000;
 app.listen(port,() => {
