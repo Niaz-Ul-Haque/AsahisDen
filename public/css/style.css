@@ -176,35 +176,7 @@ main {
  
 }   
  
-input[type="radio"] {
-    position: fixed;
-    left: -100px;
-}
 
-input:not([type="radio"]) {
-    
-    display: block;
-    transition: 300ms ease;
-    border-radius: 7px;
-    border: 0;
-    max-height: 0;
-    margin: 0;
-    padding: 0 10px;
-    overflow: hidden;
-    width: 290px;
-    font-size: 16px;
-    text-align: center;
-    outline: 0;
-}
-
-[id="sign-in"]:checked ~ input.sign-in,
-[id="sign-up"]:checked ~ input.sign-up,
-[id="reset"]:checked ~ input.reset {
-    max-height: 40px;
-    padding: 10px;
-    margin: 10px 0;
-    opacity: 1;
-}
 
 button {
     width: 250px;
@@ -214,19 +186,7 @@ button {
     color: black;
 }
 
-[id="sign-in"]:checked ~ button:before { content: 'Sign In'; }
-[id="sign-up"]:checked ~ button:before { content: 'Sign Up'; }
-[id="reset"]:checked ~ button:before { content: 'Reset password'; }
 
-label {
-    position: relative;
-    display: inline-block;
-    text-align: center;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 300ms ease;
-    width: calc(100% / 3 - 4px);
-}
 
 .flex-wrap {
     display: flex;
@@ -235,10 +195,6 @@ label {
     flex-wrap: wrap;
     height: 300px;
     text-align: center;
-}
-
-#sign-up-sign-in{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 
@@ -267,12 +223,6 @@ label {
     }
 }
 h1 { margin:150px auto 10px auto; text-align:center; color:#fff;}
-nav {
-  direction: rtl;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border-bottom: 1px solid black;
-  padding-bottom: 5px;
-}
 
 #checkbox1,
 .toggle {
@@ -308,19 +258,19 @@ nav {
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 866px) {
   .toggle {
-    clear: both;
+    /* clear: both; */
     display: block;
     text-align: center;
     font-size: 14px;
     line-height: 40px;
     cursor: pointer;
-    width: 150%;
+    /* width: 150%; */
     height: 40px;
     font-size: 23px;
-    color: #595959;
-    background: #dbdbdb;
+    /* color: #595959;
+    background: #dbdbdb; */
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     transition: all .1s linear;
@@ -333,6 +283,7 @@ nav {
     visibility: visible;
     transition: all .7s linear;
   }
+
 
   #checkbox1:checked + label .demo {
     height: 200px;
@@ -364,6 +315,7 @@ nav {
   }
   .logo-container h1{
     padding-top: 0px;
+    
   }
 }
 
@@ -379,4 +331,57 @@ nav {
   background: #6d6268;
 }
 
+.errors{
+    color: red;
+}
 
+
+
+
+
+
+
+.containerform {
+    width: 550px;
+    margin: 45px auto;
+  }
+  
+  
+  .text-input,
+  .radio-button,
+  .check-boxes {
+    margin-bottom: 13px;
+  }
+  
+  .text-input label,
+  .radio-button label,
+  .check-boxes label {
+    display: block;
+    margin-bottom: 3px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .radio-button label,
+  .check-boxes label {
+    margin-bottom: 7px;
+    font-weight: 900;
+  }
+  
+  .text-input input,
+  .text-input textarea,
+  .text-input select {
+    padding: 10px 10px;
+    display: block;
+    width: 100%;
+    border: solid 3px #ccc;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+  }
+  
+  .signupbtn {
+    width: 15%;
+    height: 25px;
+  }

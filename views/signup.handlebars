@@ -1,4 +1,4 @@
-
+{{!-- 
 <div class="flex-wrap">
     <fieldset>
         <form method="POST" action="/signup">            
@@ -26,4 +26,44 @@
         {{/each}}
     </fieldset>
   
+</div> --}}
+
+<div class="containerform">
+  <div class="form-part">
+    <h2>Simple Form Design</h2>
+<form method="POST" action="/home">
+
+        <div class="text-input">
+            {{#each message}}
+            <div class="errors">{{this}}</div>
+            {{/each}}
+          <br>
+   
+               <div class="text-input">
+        <label for="name">Full Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+
+
+            <div class="text-input">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email">
+            </div>
+         
+        </div>       <div class="text-input">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+      </div>
+           <div class="text-input">
+              <label for="Re-Password">Re-Password</label>
+              <input type="password" name="repassword" id="repassword">
+            </div>
+            <div class="row align-items-center justify-content-center">
+        <button class="btn btn-secondary btn-sm" value="Submit" type="submit">Sign up</button>        
+            </div>
+    
+     
+    </div>
+    </form>
+  </div>
 </div>
