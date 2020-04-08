@@ -7,46 +7,36 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    {{!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> --}}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/ead6cd9d42.js" crossorigin="anonymous"></script>
     <title>{{title}}</title>
 </head>
 <body>
-   {{!-- <nav>
-       <div class="logo-container">
-            <a href="/"><h1>Asahi's<span>Den</span></h1></a>
-        </div>
-    <input type="checkbox" id="checkbox1" />
-    <label for="checkbox1">
-        <ul class="menu demo">
-            <li><a href="/signup">New? Join Us</a></li>
-            <li><a href="/">Contact Us</a></li> 
-            <li><a href="/products">Products</a></li>      
-            <li><a href="/">Home</a></li>                 
-        </ul>
-        <span class="toggle">☰</span>
-    </label>
-</nav>   --}}
-<nav class="navbar navbar-dark bg-dark navbar-expand-sm">
-  <a class="navbar-brand" href="/">Asahi's Den</a>
+<nav class="navbar navbar-dark bg-dark  navbar-expand-sm ">
+  <a class="navbar-brand" href="/">Asahi'sDen</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-2" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbar-list-2">
+  <div class="collapse navbar-collapse justify-content-end" id="navbar-list-2">
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" href="/">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/products">Products</a>
+        <a class="nav-link" href="/products/allProducts">Products</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/signup">Signup</a>
+        <a class="nav-link" href="/users/login">Login</a>
       </li>
-        <li class="nav-item">
-        <a class="nav-link" href="/">Dashboard</a>
+        <li class="nav-item ">
+        <a class="nav-link" href="/users/dashboard">Dashboard</a>
+      </li>
+      </li>
+        <li class="nav-item ">
+        <a class="nav-link" href="/products/cart"><i class="fas fa-shopping-cart"></i> Shopping Cart</a>
       </li>
     </ul>
   </div>

@@ -1,0 +1,39 @@
+<div class="containerform">
+
+    <div class="form-part">
+
+        <h2>Login</h2>
+        <form method="POST" action="/users/login">
+
+            <div class="text-input">
+                {{#each message}}
+                <div class="errors">{{this}}</div>
+                {{/each}}
+
+            <br>
+   
+            <div class="text-input">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email">
+            </div>
+         
+            <div class="text-input">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </div>
+
+            <div class="row align-items-center justify-content-center">
+                <button class="btn btn-secondary btn-sm" value="Submit" type="submit">Log in</button>        
+            </div>
+
+            <hr>
+
+            <div class="row align-items-center justify-content-center">
+                <h6>New? Join us by <a href="/users/signup">Clicking Here</a></h6>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

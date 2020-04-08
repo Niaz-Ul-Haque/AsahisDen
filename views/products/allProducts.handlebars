@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="productss">
+        {{#each productlistings}}
+            
+            <div class="product-listings">
+
+                <p class="product-info">
+                    Title: {{this.title}}
+                </p>
+            
+                <div class="proo">
+                <img src="{{this.imgSrc}}">
+                </div>
+
+                <p class="product-info">
+                    Price: {{this.price}}
+                </p>
+
+                <p class="product-info">
+                    Description: {{this.description}}
+                </p>
+                <div class="row align-items-center justify-content-center">
+                <button class="btn btn-secondary btn-sm" value="Details" type="submit">Details</button>        
+                </div>
+                 <div class="row align-items-center justify-content-center">
+                <button class="btn btn-secondary btn-sm" value="Details" type="submit">Add to Cart</button>        
+                </div>
+            </div>
+
+            
+
+        {{/each}}
+        
+    </div>
+</div>
