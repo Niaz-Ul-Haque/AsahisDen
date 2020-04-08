@@ -3,7 +3,7 @@ const exphbs = require("express-handlebars");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 //const csurf = require("csurf")
-//const session = require("express-session")
+const session = require("express-session")
 require('dotenv').config({path:"./config/keys.env"});
 
 const bestsellers = require("./model/bestSellers")
@@ -18,7 +18,6 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: false }))
 
-//app.use(session({secret: process.env.SECRET_KEY, resave: false, saveUninitialized: false}))
 app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_CONNECTION_KEY, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -30,6 +29,18 @@ mongoose.connect(process.env.MONGODB_CONNECTION_KEY, {useNewUrlParser: true, use
 const generalController = require("./controller/general");
 const productController = require("./controller/product");
 const usersController = require("./controller/users");
+
+app.use(session({
+    secret: `${process.env.SECRET_KEY}`, 
+    resave: false, 
+    saveUninitialized: true
+}))
+
+app.use((req,res,next)=>{
+
+    res.locals.user = req.session.userInfo;
+    next();
+})
 
 app.use("/", generalController);
 app.use("/products", productController);

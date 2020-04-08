@@ -1,5 +1,10 @@
 const express = require('express')
 const router = express.Router();
+const bcrypt = require('bcryptjs')
+
+const isLogged = require('../middleware/auth')
+const dashboardLoader = require("../middleware/authorization")
+
 const userModel = require("../model/users") 
 //Sign up route
 router.get("/signup", (req,res)=>{
@@ -101,10 +106,8 @@ router.post("/signup", (req,res)=>{
         const user = new userModel(newUser);
         user.save()
         .then(()=>{
-            res.render("users/dashboard", {
-                title: "Dashboard",
-                name: req.body.name,
-                email: req.body.email
+            res.render("users/login", {
+                title: "Sign in"
             });
         })
         .catch(err=>{
@@ -114,16 +117,58 @@ router.post("/signup", (req,res)=>{
 })
 
 router.post("/login", (req,res)=>{
-        res.render("users/dashboard", {
-            title: "Dashboard"
-        });
-    }
-)
+
+    const arr = [];
+    userModel.findOne({email: req.body.email})
+    .then(user=>{
+        if(user == null){
+            arr.push("Email or Password is incorrect");
+            res.render("users/login", {
+                title: "Registration",
+                message: arr
+            })
+        }
+        else {
+                bcrypt.compare(req.body.password, user.password)
+                .then((isMatched)=>{
+                    if(isMatched){
+                        req.session.userInfo = user;
+                        //res.redirect("/users/dashboard")
+                        dashboardLoader(req,res);
+                    }
+                    else {
+                        arr.push("Email or Password is incorrect");
+                        res.render("users/login", {
+                            title: "Registration",
+                            message: arr
+                        })
+                    }
+
+                })
+                .catch((err=>console.log(`Error when logging (password) from db 1 ${err}`)));
+        }
+    })
+    .catch((err=>console.log(`Error when logging (email) from db 1 ${err}`)));
+
+})
 
 
-router.get("/dashboard", (req,res)=>{
+router.get("/logout", (req,res)=>{
+    req.session.destroy();
+    res.redirect("/users/login");
+})
+
+router.get("/dashboard", isLogged, (req,res)=>{
     res.render("users/dashboard", {
-        title: "Dashboard"
+        title: "Dashboard",
+        name: req.body.name
+    });
+})
+
+router.get("/admin-dashboard", isLogged, (req,res)=>{
+    res.render("users/admin-dashboard", {
+        title: "Admin Dashboard",
+        name: req.body.name
     });
 })
 module.exports = router;

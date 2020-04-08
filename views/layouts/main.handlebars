@@ -28,9 +28,15 @@
       <li class="nav-item">
         <a class="nav-link" href="/products/allProducts">Products</a>
       </li>
+      
+    {{#if user}}
+
+    {{else}}
       <li class="nav-item">
         <a class="nav-link" href="/users/login">Login</a>
       </li>
+    {{/if}}
+      
         <li class="nav-item ">
         <a class="nav-link" href="/users/dashboard">Dashboard</a>
       </li>
