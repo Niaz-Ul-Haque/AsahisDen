@@ -1,11 +1,11 @@
-<div class="containerform">
+<div class="containerform w-50">
 
-  <div class="form-part">
+  <div class="form-part w-100">
 
     <h2>Sign Up</h2>
     <form method="POST" action="/users/signup">
 
-        <div class="text-input">
+        <div class="text-input w-100">
 
             {{#each message}}
             <div class="errors">{{this}}</div>
@@ -13,7 +13,7 @@
 
             <br>
    
-            <div class="text-input">
+            <div class="text-input ">
                 <label for="name">Full Name</label>
                 <input type="text" name="name" id="name">
             </div>
@@ -39,10 +39,10 @@
     
         </div>
     
-        <hr>
+        <hr class="w-50">
 
-        <div class="row align-items-center justify-content-center">
-            <h6>Already a member? <a href="/users/login">Click Here</a></h6>
+        <div class="row align-items-center justify-content-center ">
+            <h6 >Already a member? <a href="/users/login">Click Here</a></h6>
         </div>
 
     </form>

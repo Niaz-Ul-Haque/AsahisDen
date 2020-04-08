@@ -33,7 +33,11 @@ module.exports = product;
 //         required: true},
 //     isBestSeller:{
 //         type: Boolean
-//     }
+//     },
+//     quantity: {
+//         type: Number,
+//         required: true
+//      }
 // });
 
 // const productModels =  mongoose.model('Product', schema);

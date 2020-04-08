@@ -6,6 +6,6 @@ const loadDashboard = (req,res)=>{
     else {
         res.redirect("/users/dashboard")
     }
-}
+};
 
 module.exports = loadDashboard;
