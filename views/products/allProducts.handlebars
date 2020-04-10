@@ -1,4 +1,30 @@
 <div class="container">
+
+    <div class="row align-items-center justify-content-center">
+        
+        <div class="row align-items-center justify-content-center">
+            <a href="/products/allProducts"><button class="btn btn-secondary btn-sm text-center" value="All Products" type="submit">All Products</button></a>        
+        </div>
+
+        <div class="row align-items-center justify-content-center">
+            <a href="/products/Summer"><button class="btn btn-secondary btn-sm" value="Summer" type="submit">Summer</button></a>        
+        </div>
+
+        <div class="row align-items-center justify-content-center">
+             <a href="/products/Winter"><button class="btn btn-secondary btn-sm" value="Winter" type="submit">Winter</button></a>    
+        </div>
+
+        <div class="row align-items-center justify-content-center">
+            <a href="/products/Spring"><button class="btn btn-secondary btn-sm" value="Spring" type="submit">Spring</button></a>        
+        </div>
+
+        <div class="row align-items-center justify-content-center">
+             <a href="/products/Fall"><button class="btn btn-secondary btn-sm" value="Fall" type="submit">Fall</button></a>      
+        </div>
+        <br>
+
+    </div>
+    <br>
     <div class="productss">
         {{#each data}}
             
@@ -28,9 +54,7 @@
                     <button class="btn btn-secondary btn-sm" value="Details" type="submit">Add to Cart</button>        
                 </div>
 
-                {{!-- <div class="row align-items-center justify-content-center">
-                    <a href="/products/editProduct/{{this.id}}"><button class="btn btn-secondary btn-sm" value="Submit" type="submit">Edit this product</button></a>        
-                </div> --}}
+                
             </div>
 
         {{/each}}

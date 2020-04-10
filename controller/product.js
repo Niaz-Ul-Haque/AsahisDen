@@ -23,7 +23,7 @@ router.get("/allProducts", (req,res)=>{
         });
 
         res.render("products/allProducts", {
-            hTitle: "Homepage",
+            hTitle: "All Products",
             data: filteredProducts
         });
 
@@ -150,5 +150,102 @@ router.delete("/delete/:id",(req, res) =>{
     })
     .catch(err=>console.log(`Error when deleting a product: ${err}`))
 });
+
+
+//----------------------------
+router.get("/:category", (req,res)=>{
+    if (req.params.category == "Summer") {
+        productModel.find({category: req.params.category})
+        .then((products)=>{
+            const filteredProducts = products.map(product=>{
+                return {
+                    id: product._id,
+                    title: product.title,
+                    description: product.description,
+                    isBestSeller: product.isBestSeller,
+                    category: product.category,
+                    price: product.price,
+                    cc: product.cc,
+                    imgSrc: product.imgSrc
+                }
+            });
+            res.render("products/allProducts", {
+                hTitle: `${req.params.category} Products`,
+                data: filteredProducts
+            });
+        })
+        .catch(err =>console.log(`EWrror wehn injecting data to home ${err}`))
+    } 
+    else if(req.params.category == "Winter") {
+        productModel.find({category: req.params.category})
+        .then((products)=>{
+            const filteredProducts = products.map(product=>{
+                return {
+                    id: product._id,
+                    title: product.title,
+                    description: product.description,
+                    isBestSeller: product.isBestSeller,
+                    category: product.category,
+                    price: product.price,
+                    cc: product.cc,
+                    imgSrc: product.imgSrc
+                }
+            });
+            res.render("products/allProducts", {
+                hTitle: `${req.params.category} Products`,
+                data: filteredProducts
+            });
+        })
+        .catch(err =>console.log(`EWrror wehn injecting data to home ${err}`))
+    } 
+    else if(req.params.category == "Spring") {
+        productModel.find({category: req.params.category})
+        .then((products)=>{
+            const filteredProducts = products.map(product=>{
+                return {
+                    id: product._id,
+                    title: product.title,
+                    description: product.description,
+                    isBestSeller: product.isBestSeller,
+                    category: product.category,
+                    price: product.price,
+                    cc: product.cc,
+                    imgSrc: product.imgSrc
+                }
+            });
+            res.render("products/allProducts", {
+                hTitle: `${req.params.category} Products`,
+                data: filteredProducts
+            });
+        })
+        .catch(err =>console.log(`EWrror wehn injecting data to home ${err}`))
+    } 
+    else if(req.params.category == "Fall") {
+        productModel.find({category: req.params.category})
+        .then((products)=>{
+            const filteredProducts = products.map(product=>{
+                return {
+                    id: product._id,
+                    title: product.title,
+                    description: product.description,
+                    isBestSeller: product.isBestSeller,
+                    category: product.category,
+                    price: product.price,
+                    cc: product.cc,
+                    imgSrc: product.imgSrc
+                }
+            });
+            res.render("products/allProducts", {
+                hTitle: `${req.params.category} Products`,
+                data: filteredProducts
+            });
+        })
+        .catch(err =>console.log(`EWrror wehn injecting data to home ${err}`))
+    } 
+    else {
+        res.redirect("/general/home");
+    }
+})
+
 
  module.exports = router;
