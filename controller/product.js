@@ -123,7 +123,6 @@ router.get("/editProduct/:id",(req,res)=>{
 })
 
 router.put("/update/:id", (req, res) => {
-
     const product = {
         title: req.body.title,
         description: req.body.description,
@@ -133,13 +132,11 @@ router.put("/update/:id", (req, res) => {
         category: req.body.category,
         imgSrc: req.body.imgSrc
     }
-
     productModel.updateOne({_id:req.params.id}, product)
     .then(() =>{
         res.redirect("/products/allProducts");
     })
-    .catch(err => console.log(`Error when updating a single product - ${err}`))
-
+    .catch(err => console.log(`Error when updating a single product - ${err}`)) 
 });
 
 
@@ -151,8 +148,6 @@ router.delete("/delete/:id",(req, res) =>{
     .catch(err=>console.log(`Error when deleting a product: ${err}`))
 });
 
-
-//----------------------------
 router.get("/:category", (req,res)=>{
     if (req.params.category == "Summer") {
         productModel.find({category: req.params.category})
@@ -243,9 +238,29 @@ router.get("/:category", (req,res)=>{
         .catch(err =>console.log(`EWrror wehn injecting data to home ${err}`))
     } 
     else {
-        res.redirect("/general/home");
+        res.redirect("/");
     }
 })
 
+
+router.get("/productDetails/:id",(req,res)=>{
+
+    productModel.findById(req.params.id)
+    .then((product)=>{
+        
+        const {_id, title, description, price, isBestSeller, quantity, category, imgSrc} = product
+        res.render("products/productDetails", {
+            _id,
+            title,
+            description,
+            price, 
+            isBestSeller,
+            quantity,
+            category,
+            imgSrc
+        });
+    })
+    .catch(err =>console.log(`Error when getting product details : ${err}`))
+})
 
  module.exports = router;

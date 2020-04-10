@@ -61,9 +61,9 @@ router.post("/signup", (req,res)=>{
     if(arr.length > 0){
         res.render("users/signup", {
             hTitle: "Registration",
-            message: arr,
             name: req.body.name,
             email: req.body.email,
+            message: arr
         })
     } else {
         const arrr = [];
