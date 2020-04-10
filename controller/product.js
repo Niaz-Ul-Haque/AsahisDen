@@ -1,19 +1,154 @@
 const express = require('express')
 const router = express.Router();
+const path = require('path');
 
-const allProducts = require("../model/products")
+const adminProdLoader = require('../middleware/adminProductsLoader');
+const productModel = require("../model/products")
 
 router.get("/allProducts", (req,res)=>{
-    res.render("products/allProducts", {
-        title: "Products",
-        productlistings: allProducts.getAllProducts()
-    });
+    productModel.find(/*{isBestSeller: true}*/)
+    .then((products)=>{
+
+        const filteredProducts = products.map(product=>{
+            return {
+                id: product._id,
+                title: product.title,
+                description: product.description,
+                isBestSeller: product.isBestSeller,
+                category: product.category,
+                price: product.price,
+                cc: product.cc,
+                imgSrc: product.imgSrc
+            }
+        });
+
+        res.render("products/allProducts", {
+            hTitle: "Homepage",
+            data: filteredProducts
+        });
+
+    })
+    .catch(err =>console.log(`EWrror wehn injecting data to home ${err}`))
+})
+
+router.get("/adminProducts", (req,res)=>{
+    productModel.find(/*{isBestSeller: true}*/)
+    .then((products)=>{
+
+        const filteredProducts = products.map(product=>{
+            return {
+                id: product._id,
+                title: product.title,
+                description: product.description,
+                isBestSeller: product.isBestSeller,
+                category: product.category,
+                price: product.price,
+                cc: product.cc,
+                imgSrc: product.imgSrc
+            }
+        });
+
+        res.render("products/adminProducts", {
+            hTitle: "Admin Products",
+            data: filteredProducts
+        });
+
+    })
+    .catch(err =>console.log(`EWrror wehn injecting data to home ${err}`))
 })
 
 router.get("/cart", (req,res)=>{
     res.render("products/cart", {
-        title: "Cart"
+        hTitle: "Cart"
     });
 })
+
+router.get("/addProduct",   (req,res)=>{
+    res.render("products/addProduct", {
+        hTitle: "Add a Product"
+    });
+})
+
+router.post("/addProduct", (req,res)=>{
+    
+    const newProduct = {
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        isBestSeller: req.body.isBestSeller,
+        quantity: req.body.quantity,
+        category: req.body.category
+        //imgSrc: req.body.imgSrc
+    }
+    
+    const singleProduct = new productModel(newProduct);
+    singleProduct.save()
+    .then((product)=>{
+        const imgSrcReal = `product_${product._id}${path.parse(req.files.imgSrc.name).ext}`;
+        req.files.imgSrc.mv(`public/imguploaded/${imgSrcReal}`)
+        .then(()=>{
+            productModel.updateOne({_id: product._id},{
+                imgSrc: imgSrcReal
+            })
+            .then(()=>{
+                res.redirect("/products/allProducts");
+            })
+            .catch(err => console.log(`Error when uploading an image final step : ${err}`));
+        })
+        .catch(err =>console.log(`Error when uploading an image : ${err}`));
+    })
+    .catch(err => console.log(`Erro when adding product ${err}`));
+
+  
+})
+
+router.get("/editProduct/:id",(req,res)=>{
+
+    productModel.findById(req.params.id)
+    .then((product)=>{
+        
+        const {_id, title, description, price, isBestSeller, quantity, category, imgSrc} = product
+        res.render("products/editProduct", {
+            _id,
+            title,
+            description,
+            price, 
+            isBestSeller,
+            quantity,
+            category,
+            imgSrc
+        });
+    })
+    .catch(err =>console.log(`Error when editing a product : ${err}`))
+})
+
+router.put("/update/:id", (req, res) => {
+
+    const product = {
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price, 
+        isBestSeller: req.body.isBestSeller,
+        quantity: req.body.quantity,
+        category: req.body.category,
+        imgSrc: req.body.imgSrc
+    }
+
+    productModel.updateOne({_id:req.params.id}, product)
+    .then(() =>{
+        res.redirect("/products/allProducts");
+    })
+    .catch(err => console.log(`Error when updating a single product - ${err}`))
+
+});
+
+
+router.delete("/delete/:id",(req, res) =>{
+    productModel.deleteOne({_id: req.params.id})
+    .then(() =>{
+        res.redirect("/products/allProducts");
+    })
+    .catch(err=>console.log(`Error when deleting a product: ${err}`))
+});
 
  module.exports = router;

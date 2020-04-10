@@ -10,13 +10,13 @@ const userModel = require("../model/users")
 router.get("/signup", (req,res)=>{
     res.render("users/signup", {
        // csrfToken: req.csrfToken(),
-        title: "Registration"
+        hTitle: "Registration"
     });
 })
 
 router.get("/login", (req,res)=>{
     res.render("users/login", {
-        title: "Log in"
+        hTitle: "Log in"
     });
 })
 
@@ -60,59 +60,67 @@ router.post("/signup", (req,res)=>{
 
     if(arr.length > 0){
         res.render("users/signup", {
-            title: "Registration",
+            hTitle: "Registration",
             message: arr,
             name: req.body.name,
             email: req.body.email,
         })
-    
     } else {
-
-        //const { name, email, password } = req.body;
-        // const sgMail = require('@sendgrid/mail');
-        // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        // const msg = {
-        // to: `${email}`,
-        // from: `theniaz619@gmail.com`,
-        // subject: 'Confirmation Email',
-        // html: 
-        // `
-        // Welcome ${name}!, thank you for registering with us. We hope you enjoy your shopping with Asahi's Den<br>
-        // Your account details are - <br>
-        // Name : ${name} <br>
-        // Email : ${email} <br>
-        // Password: ${password} <br>
-        // `,
-        // };
-
-        // sgMail.send(msg)
-        // .then(()=>{
-        //     res.render("users/dashboard", {
-        //         title: "Dashboard",
-        //         name: name,
-        //         email: email
-        //     });
-        // })
-        // .catch(err=>{
-        //     console.log(`Error ${err}`);
-        // });
-
-        const newUser = {
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password
-        }
-
-        const user = new userModel(newUser);
-        user.save()
-        .then(()=>{
-            res.render("users/login", {
-                title: "Sign in"
-            });
+        const arrr = [];
+        userModel.findOne({email: req.body.email})
+        .then(user=>{
+            if(user != null){
+                arrr.push("Email already exists");
+                res.render("users/signup", {
+                    hTitle: "Registration",
+                    message: arrr
+                })
+            }
+            else {
+                const { name, email, password } = req.body;
+                const sgMail = require('@sendgrid/mail');
+                sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+                const msg = {
+                to: `${email}`,
+                from: `firstsharer@gmail.com`,
+                subject: 'Confirmation Email',
+                html: 
+                `
+                Welcome ${name}!, thank you for registering with us. We hope you enjoy your shopping with Asahi's Den<br>
+                Your account details are - <br>
+                Name : ${name} <br>
+                Email : ${email} <br>
+                Password: ${password} <br>
+                `,
+                };
+        
+                sgMail.send(msg)
+                .then(()=>{
+                    const newUser = {
+                        name: req.body.name,
+                        email: req.body.email,
+                        password: req.body.password
+                    }
+            
+                    const user = new userModel(newUser);
+                    user.save()
+                    .then(()=>{
+                        res.render("users/login", {
+                            hTitle: "Sign in"
+                        });
+                    })
+                    .catch(err=>{
+                        console.log(`Error ${err}`);
+                    });
+                })
+                .catch(err=>{
+                    console.log(`Error ${err}`);
+                });
+            }
         })
-        .catch(err=>{
-            console.log(`Error ${err}`);
-        });
+        .catch((err=>console.log(`Error when logging (email) from db 1 ${err}`)));
+    
+
     }
 })
 
@@ -124,7 +132,7 @@ router.post("/login", (req,res)=>{
         if(user == null){
             arr.push("Email or Password is incorrect");
             res.render("users/login", {
-                title: "Registration",
+                hTitle: "Registration",
                 message: arr
             })
         }
@@ -133,17 +141,16 @@ router.post("/login", (req,res)=>{
                 .then((isMatched)=>{
                     if(isMatched){
                         req.session.userInfo = user;
-                        //res.redirect("/users/dashboard")
-                        dashboardLoader(req,res);
+                        res.redirect("/users/dashboard")
+                        //dashboardLoader(req,res);
                     }
                     else {
                         arr.push("Email or Password is incorrect");
                         res.render("users/login", {
-                            title: "Registration",
+                            hTitle: "Registration",
                             message: arr
                         })
                     }
-
                 })
                 .catch((err=>console.log(`Error when logging (password) from db 1 ${err}`)));
         }
@@ -158,17 +165,8 @@ router.get("/logout", (req,res)=>{
     res.redirect("/users/login");
 })
 
-router.get("/dashboard", isLogged, (req,res)=>{
-    res.render("users/dashboard", {
-        title: "Dashboard",
-        name: req.body.name
-    });
-})
+router.get("/dashboard", isLogged, dashboardLoader);
 
-router.get("/admin-dashboard", isLogged, (req,res)=>{
-    res.render("users/admin-dashboard", {
-        title: "Admin Dashboard",
-        name: req.body.name
-    });
-})
+//router.get("/admin-dashboard", isLogged, dashboardLoader)
+
 module.exports = router;

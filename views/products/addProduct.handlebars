@@ -1,0 +1,111 @@
+<div class="containerform w-50">
+
+  <div class="form-part w-100">
+
+    <h2>Add a product</h2>
+    <form method="POST" action="/products/addProduct" enctype="multipart/form-data">
+
+        <div class="text-input w-100">
+
+            {{#each message}}
+            <div class="errors">{{this}}</div>
+            {{/each}}
+
+            <br>
+   
+            <div class="text-input ">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title">
+            </div>
+
+            <div class="text-input">
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description">
+            </div>
+         
+            <div class="text-input">
+                <label for="price">Price</label>
+                <input type="number" name="price" id="price">
+            </div>
+
+           <div class="w-70">
+                <label for="isBestSeller">Is Bestseller?</label>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="isBestSeller" id="isBestSeller1" value="yes" checked>
+                                <label class="form-check-label" for="isBestSeller1">
+                                    Yes
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="isBestSeller" id="isBestSeller2" value="no">
+                                <label class="form-check-label" for="isBestSeller2">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="text-input">
+                <label for="quantity">Quantity</label>
+                <input type="number" name="quantity" id="quantity">
+            </div>
+
+            <div class="w-70">
+                <label for="category">Category?</label>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="category" id="category1" value="Winter" checked>
+                                <label class="form-check-label" for="category1">
+                                    Winter
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="category" id="category2" value="Summer">
+                                <label class="form-check-label" for="isBestSeller2">
+                                    Summer
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="category" id="category3" value="Fall">
+                                <label class="form-check-label" for="category3">
+                                    Fall
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="category" id="category4" value="Spring">
+                                <label class="form-check-label" for="category4">
+                                    Spring
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="text-input">
+                <label for="imgSrc">Image</label>
+                <input type="file" name="imgSrc" id="imgSrc">
+            </div>
+
+            <div class="row align-items-center justify-content-center">
+                <button class="btn btn-secondary btn-sm" value="Submit" type="submit">Add Product</button>        
+            </div>
+    
+        </div>
+
+    
+
+    </form>
+
+</div>

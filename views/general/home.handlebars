@@ -6,9 +6,11 @@
     <div class="categories">
         {{!-- <h2 class="category-title">Category</h2> --}}
         <div class="category-image-container">
-        {{#each productcategory}}
-            <ul class="category-list"><h6 class="category-name">{{this.name}}</h6>        
-            <img class="category-image" src="{{this.imgSrc}}"></ul>            
+        {{#each data}}
+        {{#if cc}}
+            <ul class="category-list"><h6 class="category-name">{{this.category}}</h6>        
+            <img class="category-image" src="/imguploaded/{{this.imgSrc}}"></ul>
+        {{/if}}          
         {{/each}}
         </div>
     </div>
@@ -16,8 +18,13 @@
     <div class="best-sellers">
         <h2 class="category-title">Best Sellers</h2>
         <div class="category-image-container">
-        {{#each productsbest}}        
-            <img class="category-image" src="{{this.imgSrc}}">            
+        {{#each data}} 
+        {{#if isBestSeller}}    
+       
+            <ul class="category-list">      
+            <img class="category-image" src="/imguploaded/{{this.imgSrc}}"></ul>  
+      
+        {{/if}}     
         {{/each}}
         </div>
     </div>

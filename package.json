@@ -22,11 +22,11 @@
     "express-fileupload": "^1.1.7-alpha.3",
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
+    "handlebars-helpers": "^0.10.0",
     "mongoose": "^5.9.7",
     "node-sass": "^4.13.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
   }
-
 }
