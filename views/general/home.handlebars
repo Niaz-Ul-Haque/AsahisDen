@@ -1,3 +1,4 @@
+
 <div class="home-container">
     <div class="promotion-banner-container">
         <img class="promotion-banner"src="./img/slide img 3.jpg">        
@@ -9,8 +10,8 @@
             <form method="GET" action="/products/allProducts/{{category}}" class="form-inline">
                 {{#each data}}
                 {{#if cc}}
-                    <ul class="category-list"><h6 class="category-name">{{this.category}}</h6>        
-                    <img class="category-image" src="/imguploaded/{{this.imgSrc}}"></ul>
+                    <a href="/products/{{this.category}}" class="text-decoration-none text-black-50"><ul class="category-list"><h6 class="category-name">{{this.category}}</h6>        
+                    <img class="category-image" src="/imguploaded/{{this.imgSrc}}"></ul></a>
                 {{/if}}          
                 {{/each}}
             </form>
