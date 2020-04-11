@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require("express-session")
 const fileUpload = require("express-fileupload");
+const mongoStore = require("connect-mongo")(session);
 require('dotenv').config({path:"./config/keys.env"});
 
 //const bestsellers = require("./model/bestSellers")
@@ -16,8 +17,7 @@ app.engine('handlebars', exphbs({
     helpers: {
         iff : function(condition) {
             return condition == true;
-        }
-        
+        }   
     }
 }));
 app.set('view engine', 'handlebars');
@@ -38,11 +38,18 @@ const usersController = require("./controller/users");
 app.use(session({
     secret: `${process.env.SECRET_KEY}`, 
     resave: false, 
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new mongoStore({ 
+        mongooseConnection: mongoose.connection
+    }),
+    cookie: {
+        maxAge: 180 * 60 * 1000
+    }
 }))
 
 app.use((req,res,next)=>{
     res.locals.user = req.session.userInfo;
+    res.locals.session = req.session;
     next();
 })
 

@@ -2,8 +2,10 @@ const express = require('express')
 const router = express.Router();
 const path = require('path');
 
-const adminProdLoader = require('../middleware/adminProductsLoader');
-const productModel = require("../model/products")
+const productModel = require("../model/products");
+const Cart = require("../model/cart");
+const isLogged = require('../middleware/auth')
+const otherAuthor = require('../middleware/otherAuthor')
 
 router.get("/allProducts", (req,res)=>{
     productModel.find(/*{isBestSeller: true}*/)
@@ -31,7 +33,7 @@ router.get("/allProducts", (req,res)=>{
     .catch(err =>console.log(`EWrror wehn injecting data to home ${err}`))
 })
 
-router.get("/adminProducts", (req,res)=>{
+router.get("/adminProducts",isLogged, otherAuthor, (req,res)=>{
     productModel.find(/*{isBestSeller: true}*/)
     .then((products)=>{
 
@@ -57,20 +59,125 @@ router.get("/adminProducts", (req,res)=>{
     .catch(err =>console.log(`EWrror wehn injecting data to home ${err}`))
 })
 
-router.get("/cart", (req,res)=>{
-    res.render("products/cart", {
-        hTitle: "Cart"
+router.get("/cart", isLogged, (req,res)=>{
+
+    if (!req.session.cart){
+        return res.render("products/cart", {
+            hTitle: "Cart",
+            products: null
+        })
+    }
+    const cart = new Cart(req.session.cart);
+    res.render("products/cart",{
+        hTitle: "Cart",
+        products: cart.generateArray(),
+        totalPrice: cart.totalPrice,
+        imgSrc: cart.imgSrc
+    })
+    
+})
+
+
+router.get("/cart/:id", isLogged, (req,res)=>{
+
+    const productId = req.params.id;
+    const cart = new Cart(req.session.cart ? req.session.cart : {})
+
+    productModel.findById(productId, (err, product)=>{
+        if(err){
+            console.log(`Err when adding to cart : -- ${err}`);
+        }
+        cart.add(product, product.id)
+        req.session.cart = cart;
+        res.redirect("/products/allProducts")
     });
 })
 
-router.get("/addProduct",   (req,res)=>{
+router.get("/reduce/:id", (req, res)=>{
+    const productId = req.params.id;
+    const cart = new Cart(req.session.cart ? req.session.cart : {});
+    cart.reduceByOne(productId);
+    req.session.cart = cart;
+    res.redirect("/products/cart")
+});
+
+router.get("/remove/:id", (req, res)=>{
+    const productId = req.params.id;
+    const cart = new Cart(req.session.cart ? req.session.cart : {});
+    cart.removeProduct(productId);
+    req.session.cart = cart;
+    res.redirect("/products/cart")
+});
+
+router.get("/checkout", isLogged, (req,res)=>{
+    productModel.find(/*{isBestSeller: true}*/)
+    .then((products)=>{
+
+        const filteredProducts = products.map(product=>{
+            return {
+                id: product._id,
+                title: product.title,
+                description: product.description,
+                isBestSeller: product.isBestSeller,
+                category: product.category,
+                price: product.price,
+                cc: product.cc,
+                imgSrc: product.imgSrc
+            }
+        });
+        //req.session.userInfo = user;
+       // req.session.cart = cart;
+        const sgMail = require('@sendgrid/mail');
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        const msg = {
+        to: `${req.session.userInfo.email}`,
+        from: `firstsharer@gmail.com`,
+        subject: `Asahi's Den Reciept`,
+        html: 
+        `
+        Thank you for shopping with us ${req.session.userInfo.name}!. Here is your purchase details - <br>
+        <table style=" border: 1px solid black">
+            <tr>
+                <th style=" border: 1px solid black">Product Name</th>
+                <th style=" border: 1px solid black">Price</th>
+            </tr>
+            {{#each req.session.cart}}
+            <tr>
+                <td style=" border: 1px solid black">${Object.keys(req.session.cart.products).map(productId => req.session.cart.products[productId].products.title)}</td>
+                <td style=" border: 1px solid black">${Object.keys(req.session.cart.products).map(productId => req.session.cart.products[productId].products.price)}</td>
+            </tr>
+            {{/each}}
+                <tr>
+                <td colspan="2" style=" border: 1px solid black">Total: ${req.session.cart.totalPrice}</td>
+            </tr>
+        </table>
+        
+        `,
+        };
+
+        sgMail.send(msg)
+        .then(()=>{
+            req.session.cart = null;
+            res.render("general/home", {
+                hTitle: "Homepage",
+                data: filteredProducts,
+                checkoutMessage: true
+            });
+        })
+        .catch(err =>console.log(`EWrror wehn checkingout with emails final${err}`));    
+
+    })
+    .catch(err =>console.log(`EWrror wehn checkingout with emails first ${err}`))
+
+})
+
+router.get("/addProduct",  isLogged, otherAuthor, (req,res)=>{
     res.render("products/addProduct", {
         hTitle: "Add a Product"
     });
 })
 
 router.post("/addProduct", (req,res)=>{
-    
     const newProduct = {
         title: req.body.title,
         description: req.body.description,
@@ -98,8 +205,6 @@ router.post("/addProduct", (req,res)=>{
         .catch(err =>console.log(`Error when uploading an image : ${err}`));
     })
     .catch(err => console.log(`Erro when adding product ${err}`));
-
-  
 })
 
 router.get("/editProduct/:id",(req,res)=>{

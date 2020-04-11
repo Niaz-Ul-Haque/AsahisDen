@@ -6,6 +6,7 @@ const isLogged = require('../middleware/auth')
 const dashboardLoader = require("../middleware/authorization")
 
 const userModel = require("../model/users") 
+const Cart = require("../model/cart");
 //Sign up route
 router.get("/signup", (req,res)=>{
     res.render("users/signup", {
@@ -119,8 +120,6 @@ router.post("/signup", (req,res)=>{
             }
         })
         .catch((err=>console.log(`Error when logging (email) from db 1 ${err}`)));
-    
-
     }
 })
 

@@ -1,1 +1,55 @@
-<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit tempore a fugiat corporis recusandae tenetur odio, exercitationem sunt quos, voluptatum, <br><br><br><br>veniam eligendi aliquid consectetur repudiandae voluptates facilis ipsa illum suscipit.</p>
+<style>
+    img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+</style>
+
+{{#if this.products }}
+    <div class="container align-items-center">
+        <div class=" row">
+          
+                {{#each products}}
+                    <li class="col-sm-6 text-center">
+                        <span class="badge">{{this.qty}}</span>
+                           <div class="proo">
+                                <img src="/imguploaded/{{this.products.imgSrc}}" class="rounded" alt="...">
+                            </div>
+                        <span style="font-weight: bold">{{this.products.title}}</span>
+                        <span class="label label-success">${{this.price}}</span>
+                
+                            <ul class="text inline text-center align-self-center text-decoration-none">
+                                <li><a href="/products/reduce/{{this.products._id}}">Reduce 1</a></li>
+                                <li><a href="/products/remove/{{this.products._id}}">Remove All</a></li>
+                            </ul>
+                    </li>
+                {{/each}}
+           
+        </div>
+    </div>
+    <br>
+    <hr>
+    <div class="container w-100">
+        <div class="row align-items-center justify-content-center">
+            <strong>Total: ${{totalPrice}}</strong>
+        </div>
+    </div>
+   
+    <div class="container w-100">
+        <div class="row align-items-center justify-content-center">
+            <a href="/products/checkout"><button type="button" class="btn btn-secondary btn-sm">Checkout</button></a>
+        </div>
+    </div>
+    {{ else }}
+     <div class="container w-100">
+        <div class="row align-items-center justify-content-center">
+            <h2>No Items in Cart yet!</h2>
+        </div>
+    </div>
+    <div class="container w-100">
+        <div class="row align-items-center justify-content-center">
+            <a href="/products/allProducts"><button type="button" class="btn btn-secondary btn-sm">Go Shopping</button></a>
+        </div>
+    </div>
+{{/if}}

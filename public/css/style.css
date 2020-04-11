@@ -43,39 +43,7 @@
 .logo-container h1 span {
     font-weight: 600;
 }
-/* 
-.navigation{
-    float: right;
-    height: 100%;
-}
 
-.navigation a {
-    height: 100%;
-    display: table;
-    float: left;
-    padding: 0 20px;
-}
-
-.register-sign {   
-    font-size: 20px;
-}
-
-.navigation a:last-child{
-    padding-right: 0;
-}
-
-.navigation a li {
-    display: table-cell;
-    color: black;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 14px;
-    vertical-align: middle;
-    padding: 0 5px;
-}
-
-.navigation a li:hover {        
-    padding-bottom: 15%;
-} */
 
 footer {
     background: black;
@@ -211,7 +179,7 @@ button {
 }
 
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 778px) {
     .productss{
         grid-template-columns: auto;
     }

@@ -8,3 +8,11 @@
     <a href="/users/logout"><button class="btn btn-secondary btn-sm" value="Submit" type="submit">Logout</button></a>       
 </div>
 
+{{#if message}}
+    <h1 class="text-dark">
+        Not an Admin yet.
+    </h1>
+    <div class="row align-items-center justify-content-center">
+    <a href="/products/allProducts"><button class="btn btn-secondary btn-sm" value="Submit" type="submit">Go Shopping?</button></a>       
+    </div>
+{{/if}}
