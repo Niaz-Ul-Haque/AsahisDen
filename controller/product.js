@@ -101,6 +101,14 @@ router.get("/reduce/:id", (req, res)=>{
     res.redirect("/products/cart")
 });
 
+router.get("/increase/:id", (req, res)=>{
+    const productId = req.params.id;
+    const cart = new Cart(req.session.cart ? req.session.cart : {});
+    cart.increaseByOne(productId);
+    req.session.cart = cart;
+    res.redirect("/products/cart")
+});
+
 router.get("/remove/:id", (req, res)=>{
     const productId = req.params.id;
     const cart = new Cart(req.session.cart ? req.session.cart : {});
@@ -125,8 +133,7 @@ router.get("/checkout", isLogged, (req,res)=>{
                 imgSrc: product.imgSrc
             }
         });
-        //req.session.userInfo = user;
-       // req.session.cart = cart;
+      
         const sgMail = require('@sendgrid/mail');
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
@@ -141,20 +148,19 @@ router.get("/checkout", isLogged, (req,res)=>{
                 <th style=" border: 1px solid black">Product Name</th>
                 <th style=" border: 1px solid black">Price</th>
             </tr>
-            {{#each req.session.cart}}
+         
             <tr>
                 <td style=" border: 1px solid black">${Object.keys(req.session.cart.products).map(productId => req.session.cart.products[productId].products.title)}</td>
                 <td style=" border: 1px solid black">${Object.keys(req.session.cart.products).map(productId => req.session.cart.products[productId].products.price)}</td>
             </tr>
-            {{/each}}
-                <tr>
+    
+            <tr>
                 <td colspan="2" style=" border: 1px solid black">Total: ${req.session.cart.totalPrice}</td>
             </tr>
         </table>
         
         `,
         };
-
         sgMail.send(msg)
         .then(()=>{
             req.session.cart = null;
@@ -185,7 +191,6 @@ router.post("/addProduct", (req,res)=>{
         isBestSeller: req.body.isBestSeller,
         quantity: req.body.quantity,
         category: req.body.category
-        //imgSrc: req.body.imgSrc
     }
     
     const singleProduct = new productModel(newProduct);
