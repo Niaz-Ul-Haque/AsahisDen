@@ -2,6 +2,6 @@
 
 Responsive E-commerce Website.
 
-Miniature Amazon-ish E-commerce website, with a fully working cart, sessions, user registrations, etc.
+An E-commerce website, with a fully working cart, sessions, user registrations, Authentications, etc.
 
 Link - http://asahisden.herokuapp.com/
